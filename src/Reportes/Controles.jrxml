@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="71cc2d07-4764-4e18-a935-94f463b6fa5b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="tipo" class="java.lang.String"/>
+	<parameter name="placa" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="f1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="f2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     control.`horaControl` AS control_horaControl,
+     control.`fechControl` AS control_fechControl,
+     control.`descpControl` AS control_descpControl,
+     control.`Empleado_dniEmpl` AS control_Empleado_dniEmpl,
+     control.`Vehiculo_placVehi` AS control_Vehiculo_placVehi,
+     control.`Paradero_idPara` AS control_Paradero_idPara
+FROM
+     `control` control 
+WHERE Vehiculo_placVehi='$P!{placa}' and fechControl >= '$P!{f1}' and fechControl <= '$P!{f2}';]]>
+	</queryString>
+	<field name="control_horaControl" class="java.lang.String"/>
+	<field name="control_fechControl" class="java.sql.Date"/>
+	<field name="control_descpControl" class="java.lang.String"/>
+	<field name="control_Empleado_dniEmpl" class="java.lang.Integer"/>
+	<field name="control_Vehiculo_placVehi" class="java.lang.String"/>
+	<field name="control_Paradero_idPara" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="107" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="322" y="57" width="100" height="20" uuid="8d4c06fa-ef40-4472-9a1d-5cc3bb5f5708"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="433" y="17" width="40" height="20" uuid="602537b0-ab96-42c7-b5e2-25176dafecfd"/>
+				<text><![CDATA[  hasta  ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="322" y="-3" width="251" height="20" uuid="de81c2e2-ff32-4e11-a6be-c68ca775932f"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="322" y="77" width="100" height="20" uuid="b5526786-4da1-4fec-89bb-d9e54f023ad9"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="473" y="17" width="62" height="20" uuid="541c2dce-92d5-4357-a654-84ce9410cb29"/>
+				<textFieldExpression><![CDATA[$P{f2}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="535" height="106" uuid="125373a8-bcae-4608-a4d5-7cd62b95f47f"/>
+				<imageExpression><![CDATA["D:\\EPIS\\java\\Programación\\PoryectoProgra\\Grupo_N°_08\\SisTransporteApp\\src\\Icons\\empresa.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="375" y="17" width="58" height="20" uuid="cfd60d97-5e3d-481b-8089-9a60beff20e4"/>
+				<textFieldExpression><![CDATA[$P{f1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="322" y="37" width="80" height="20" uuid="846ea9ea-e2a8-45f3-97f2-3340c736cddd"/>
+				<text><![CDATA[Tipo de reporte:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="402" y="37" width="153" height="20" uuid="c3d7c865-d227-4d17-a108-d4c20a810336"/>
+				<textFieldExpression><![CDATA[$P{tipo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="322" y="17" width="51" height="20" uuid="f244102f-1c9c-458c-a740-c81c31ee7b89"/>
+				<text><![CDATA[Periodo]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="11" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="c7775988-9efa-4d0a-be6f-054eb6b9e760"/>
+				<text><![CDATA[PLACA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="72" height="20" uuid="3c4b006a-3a2e-4919-bbf7-0e9095a5528a"/>
+				<text><![CDATA[PARADERO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="0" width="83" height="20" uuid="02c72fcf-b47f-428c-abcb-b7783f95da71"/>
+				<text><![CDATA[HORA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="0" width="100" height="20" uuid="807c5d46-220f-4791-b2ae-39be0f1163a0"/>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="0" width="100" height="20" uuid="564f9b46-bbc6-48c4-bae8-152a49b5c8ab"/>
+				<text><![CDATA[DESCRIPCIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="20" uuid="9c5d70e0-55db-4f3c-808d-301399e48b70"/>
+				<text><![CDATA[EMPLEADO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="721c8b2c-4307-459f-9425-116158e1d279"/>
+				<textFieldExpression><![CDATA[$F{control_Vehiculo_placVehi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="72" height="20" uuid="e8355ac9-830c-4c39-99c5-3382f7d4426b"/>
+				<textFieldExpression><![CDATA[$F{control_Paradero_idPara}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="172" y="0" width="83" height="20" uuid="27312ae8-6970-4023-ba46-f96f4a3467f4"/>
+				<textFieldExpression><![CDATA[$F{control_horaControl}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="255" y="0" width="100" height="20" uuid="38ed775e-0bc4-4e61-a397-dc75bbf0456b"/>
+				<textFieldExpression><![CDATA[$F{control_fechControl}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="0" width="100" height="20" uuid="136fbf12-b7bd-4fea-9122-428e2ac3466f"/>
+				<textFieldExpression><![CDATA[$F{control_descpControl}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="79ff2c5b-9618-4b1f-9c2c-1a389cc73a43"/>
+				<textFieldExpression><![CDATA[$F{control_Empleado_dniEmpl}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="207" y="0" width="80" height="20" uuid="d4a4e326-2120-44e9-a74f-a7230219425e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="287" y="0" width="40" height="20" uuid="16689062-45d1-48ca-aac6-a6c76324c8ea"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

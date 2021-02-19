@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d1cf021e-db36-4107-8ecf-193766877888">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="f1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="f2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\EPIS\\java\\Programación\\PoryectoProgra\\Grupo_N°_08\\SisTransporteApp\\src\\Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="tipo" class="java.lang.String"/>
+	<parameter name="descripcion" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select SUM(distinct a.pagoOper) totalPago, SUM(distinct b.IngresoOper) ingresoTotal,(SUM(distinct b.IngresoOper)-SUM(distinct a.pagoOper)) Ganancia FROM (
+select nombOper,pagoOper,horaOper,fechOper from operacionayudante where pagoOper is not null and fechOper>='$P!{f1}' and fechOper<='$P!{f2}' 
+union 
+select nombOper, pagoOper,horaOper,fechOper from operacionconductor where pagoOper is not null and fechOper>='$P!{f1}' and fechOper<='$P!{f2}'
+union
+select nombOper, pagoOper,horaOper,fechOper from operacionpropietario where pagoOper is not null and fechOper>='$P!{f1}' and fechOper<='$P!{f2}') as a inner join (select nombOper, IngresoOper,horaOper,fechOper from operacionconductor where fechOper>='$P!{f1}' and fechOper<='$P!{f2}') as b;]]>
+	</queryString>
+	<field name="totalPago" class="java.lang.Double"/>
+	<field name="ingresoTotal" class="java.lang.Double"/>
+	<field name="Ganancia" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="107" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="535" height="106" uuid="c6cab54d-b53e-431c-a69c-06f0ad8b9cde"/>
+				<imageExpression><![CDATA["D:\\EPIS\\java\\Programación\\PoryectoProgra\\Grupo_N°_08\\SisTransporteApp\\src\\Icons\\empresa.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="322" y="17" width="51" height="20" uuid="0e3da3d1-680f-4153-9631-351c947bfaed"/>
+				<text><![CDATA[Periodo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="322" y="37" width="80" height="20" uuid="20468d5b-0b26-4d7f-ab01-8ba38c830860"/>
+				<text><![CDATA[Tipo de reporte:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="322" y="57" width="100" height="20" uuid="e36d18b1-6247-4143-a8d6-b0a1fb2dbc5a"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="431" y="17" width="40" height="20" uuid="b3243c0e-73d5-4185-920d-6cc4abc9b842"/>
+				<text><![CDATA[  hasta  ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="322" y="77" width="100" height="20" uuid="4b6de38c-e7f4-4404-86a8-b3de95b2e095"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="373" y="17" width="58" height="20" uuid="d252e50f-b357-4187-b320-b02c0a7f8e13"/>
+				<textFieldExpression><![CDATA[$P{f1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="471" y="17" width="62" height="20" uuid="96c644df-a260-45b1-9b8b-94140a5d17f5"/>
+				<textFieldExpression><![CDATA[$P{f2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="37" width="153" height="20" uuid="e73df83f-7b02-4de0-b840-2c2e91f0a768"/>
+				<textFieldExpression><![CDATA[$P{tipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="-3" width="251" height="20" uuid="b374bf93-4d68-4edd-a59c-c71d9b4b0912"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="39" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="47" height="39" uuid="4ca7cf5e-66f3-4ebd-bb72-daa7385c1116"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Ganancias_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="185" y="0" width="100" height="20" uuid="8c3fb684-bcfd-4732-9e44-660959f51b17"/>
+				<text><![CDATA[Nuevos soles]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="0" width="343" height="20" uuid="3f994239-5188-41d4-9056-00f1e1f20ad0"/>
+				<text><![CDATA[INGRESO TOTAL Y PAGO TOTAL EN EL PERIODO SELECCIONADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="0" width="100" height="20" uuid="b965f377-ac17-4fe1-95ad-e150c8aacd23"/>
+				<text><![CDATA[GANANCIA:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="0" width="100" height="20" uuid="b104d17a-c112-4e49-865a-90140b22d258"/>
+				<textFieldExpression><![CDATA[$F{ingresoTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="20" width="100" height="20" uuid="f60db7b3-c5ff-4dd5-8a77-1f9117acdf77"/>
+				<textFieldExpression><![CDATA[$F{totalPago}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="110" y="0" width="100" height="20" uuid="d8f60a4c-911b-4ba0-bbb1-633dae21928e"/>
+				<text><![CDATA[Nuevos soles]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="20" width="100" height="20" uuid="d03132a7-4004-4bc3-97e4-2d56a211e3f5"/>
+				<text><![CDATA[Nuevos soles]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="373" y="0" width="71" height="20" uuid="8660ecfc-b987-40a7-9dc7-83f633bfe433"/>
+				<textFieldExpression><![CDATA[$F{Ganancia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="444" y="0" width="100" height="20" uuid="4cf66d13-026f-4a5c-902a-9635c603bde0"/>
+				<text><![CDATA[Nuevos soles]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="252" y="0" width="40" height="20" uuid="302a54e7-d92e-41ed-b51f-b55ce9ecd09a"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="172" y="0" width="80" height="20" uuid="21d664df-fc7b-400b-a2ba-62aa29096d44"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Ganancias_subreport1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="31cb45fd-5a05-41a4-9214-87d1835481d1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[(select SUM(IngresoOper) totalPago from operacionconductor) UNION
+(select SUM(pagoOper) totalPago FROM (select nombOper, pagoOper,horaOper,fechOper from operacionayudante where pagoOper is not null union 
+select nombOper, pagoOper,horaOper,fechOper from operacionconductor where pagoOper is not null union
+select nombOper, pagoOper,horaOper,fechOper from operacionpropietario where pagoOper is not null) as b);]]>
+	</queryString>
+	<field name="totalPago" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="10" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="12" y="0" width="291" height="20" uuid="d47064fc-3fd7-4c20-b009-229eebac78e3"/>
+				<text><![CDATA[INGRESOS Y PAGOS DESDE SU REGISTRO AL SISTEMA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="12" y="0" width="100" height="20" uuid="bebb706a-1bf3-4212-b12d-15d7337460e0"/>
+				<textFieldExpression><![CDATA[$F{totalPago}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="112" y="0" width="100" height="20" uuid="1cfb3326-a06a-448f-8d4a-be7c2a5c558d"/>
+				<text><![CDATA[Nuevos Soles]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

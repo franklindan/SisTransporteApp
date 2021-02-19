@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cb90a96c-1901-447a-a72a-c3a6cca591c0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dni" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from (select idOper,nombOper,horaOper,fechOper,Empleado_dniEmpl from operacionayudante union
+select idOper,nombOper,horaOper,fechOper,Empleado_dniEmpl from operacionconductor union
+select idOper,nombOper,horaOper,fechOper,Empleado_dniEmpl from operacionpropietario union
+select idReserva,tipoReserva,costoReserva,Vehiculo_placVehi,Cliente_dniClie from reserva union
+select idInfo,nombInfo,tipoInfo,fechaInfo,Administrador_dniAdmi from informe) as b 
+where Empleado_dniEmpl=$P!{dni};]]>
+	</queryString>
+	<field name="idOper" class="java.lang.Integer"/>
+	<field name="nombOper" class="java.lang.String"/>
+	<field name="horaOper" class="java.lang.String"/>
+	<field name="fechOper" class="java.lang.String"/>
+	<field name="Empleado_dniEmpl" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="106" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="322" y="34" width="100" height="20" uuid="62db07bd-d56a-4604-9088-ba878557da48"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="535" height="106" uuid="554c8cf9-3b36-4a88-87c1-488287c96e11"/>
+				<imageExpression><![CDATA["D:\\EPIS\\java\\Programación\\PoryectoProgra\\Grupo_N°_08\\SisTransporteApp\\src\\Icons\\empresa.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="322" y="0" width="250" height="20" uuid="821f02d1-89dd-461e-bef9-4fd1aa7a7caa"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE INSPECCIÓN DE USUARIO]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="320" y="54" width="100" height="20" uuid="dbfc8d8e-82d0-48b3-897e-fbc21cda83c1"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="19" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="7a0b96c7-c2bd-46d3-bd14-1e8169b7ab5b"/>
+				<text><![CDATA[ID OPERACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="0" width="100" height="20" uuid="ca2e1bbe-cef1-4f9b-ad4a-3eeb8c318d9d"/>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="0" width="100" height="20" uuid="7da9a07a-31b9-4fdd-97e1-137ee4443a32"/>
+				<text><![CDATA[HORA O TIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="337" y="0" width="100" height="20" uuid="7844e12c-ac48-4f03-bc19-acc8642ff0c2"/>
+				<text><![CDATA[FECHA O PLACA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="20" uuid="3a868509-04cb-429a-b2cc-6cf6efb7c191"/>
+				<text><![CDATA[DNI]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="6f8f7de3-414a-434e-a9c3-65e80545869f"/>
+				<textFieldExpression><![CDATA[$F{idOper}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="0" width="100" height="20" uuid="559d6858-a1fb-4235-900c-cb9555ee95f3"/>
+				<textFieldExpression><![CDATA[$F{nombOper}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="100" height="20" uuid="acd5e61b-ab0b-45c0-adb0-6ced630427d1"/>
+				<textFieldExpression><![CDATA[$F{horaOper}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="337" y="0" width="100" height="20" uuid="9cf00755-0363-41c8-b5b3-5f02c5347dd0"/>
+				<textFieldExpression><![CDATA[$F{fechOper}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="a3871a98-4a62-4fe4-85e7-f92f0071fed3"/>
+				<textFieldExpression><![CDATA[$F{Empleado_dniEmpl}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="190" y="0" width="80" height="20" uuid="f2f3122d-f16b-4041-84a7-ec46c4336801"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="270" y="0" width="40" height="20" uuid="f187acf3-ff5e-4a51-a219-a227b522701c"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

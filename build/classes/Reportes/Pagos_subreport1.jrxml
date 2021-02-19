@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Pagos_subreport1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a31ff949-0b30-4da9-878e-b3688bf0d758">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="f1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="f2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select sum(pagoOper) totalPago FROM (select nombOper, pagoOper,horaOper,fechOper from operacionayudante where pagoOper is not null and fechOper>='$P!{f1}' and fechOper<='$P!{f2}' union 
+select nombOper, pagoOper,horaOper,fechOper from operacionconductor where pagoOper is not null and fechOper>='$P!{f1}' and fechOper<='$P!{f2}' union
+select nombOper, pagoOper,horaOper,fechOper from operacionpropietario where fechOper>='$P!{f1}' and fechOper<='$P!{f2}') as b;]]>
+	</queryString>
+	<field name="totalPago" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="47" y="1" width="100" height="20" uuid="dc142d7a-f1e7-4035-86b7-c3ebd055b080"/>
+				<text><![CDATA[PAGO TOTAL:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="47" y="0" width="100" height="20" uuid="702b1104-0828-4de6-ae51-78ee882a1cc1"/>
+				<textFieldExpression><![CDATA[$F{totalPago}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="147" y="0" width="100" height="20" uuid="779c10b4-f187-46e9-a38f-8aade88aee02"/>
+				<text><![CDATA[NUEVOS SOLES]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
